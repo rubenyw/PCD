@@ -1,0 +1,11 @@
+clear; clc;
+pisang = imread('pisang.png');
+pisang = im2double(pisang);
+
+imshow(pisang);
+
+pisang_gray = rgb2gray(pisang);
+figure; imshow(pisang_gray);
+pisang_binar= imbinarize(pisang_gray(:,:,1));
+pisang_binar = bwmorph(pisang_binar,'remove');
+figure; imshow(pisang_binar);
