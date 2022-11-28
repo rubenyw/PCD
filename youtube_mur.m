@@ -1,10 +1,11 @@
 clc; clear; close all; warning off all;
 
-obj = imread('banana.png');
-imshow(obj);
+obj = imread('pisang.png');
+figure, imshow(obj);
 
 b = rgb2gray(obj);
 figure, imshow(b);
+
 
 c = imbinarize(b);
 figure, imshow(c);
