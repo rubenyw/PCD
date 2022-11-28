@@ -8,15 +8,12 @@ figure, imshow(obj_gray);
 
 level = graythresh(obj);
 
-bw = imbinarize(obj_gray);
+bw = imbinarize(obj_gray, level);
 figure, imshow(bw);
 
-bw = imcomplement(bw);
+bw = imfill(bw, 'holes');
 figure, imshow(bw);
-
-bw2 = imfill(bw, 'holes');
-bw = bwareaopen(bw,500);
-subplot(1, 3, 2);
+bw = bwareaopen(bw,100);
 figure, imshow(bw);
 
 HSV = rgb2hsv(obj);
@@ -33,9 +30,22 @@ V(~bw) = 0;
 Hue = sum(sum(H))/sum(sum(bw));
 Saturation = sum(sum(S))/sum(sum(bw));
 Value = sum(sum(V))/sum(sum(bw));
-
 Luas = sum(sum(bw));
 
 figure, imshow(H);
 figure, imshow(S);
 figure, imshow(V);
+
+matriks(1,1) = Hue;
+matriks(1,2) = Saturation;
+matriks(1,3) = Value;
+matriks(1,4) = Luas;
+
+kelas_latih = cell(2,1);
+kelas_latih(1) = 'buah pisang';
+kelas_latih(2) = 'bukan pisang';
+
+%Naives Bayes
+Mdl = fitcnb(matriks, kelas_latih);
+
+hasil_latih = predict(Mdl, matriks);
