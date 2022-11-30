@@ -2,9 +2,8 @@ clc
 close all
 warning off
 
-obj = imread('banana.png');
-figure, imshow(obj);
-obj2 = obj;
+obj = imread('pisang.png');
+obj2 = imread('pisang.png');
 % figure, imshow(obj);
 
 % edge_detected_image = bwareaopen(imfill(imclose(edge(rgb2gray(obj),'sobel'),strel('diamond',4)),'holes'),100000);
@@ -33,36 +32,6 @@ figure, imshow(BWfinal);
 se = strel('sphere',5);
 BWfinal = imerode(BWfinal, se);
 figure, imshow(BWfinal);
-
-% HSV = rgb2hsv(obj2);
-% figure, imshow(HSV);
-% 
-% H = HSV(:,:,1);
-% S = HSV(:,:,2);
-% V = HSV(:,:,3);
-% 
-% H(~obj) = 0;
-% S(~obj) = 0;
-% V(~obj) = 0;
-% 
-% Hue = sum(sum(H))/sum(sum(obj));
-% Saturation = sum(sum(S))/sum(sum(obj));
-% Value = sum(sum(V))/sum(sum(obj));
-% Luas = sum(sum(obj));
-% 
-% figure, imshow(H);
-% figure, imshow(S);
-% figure, imshow(V);
-
-R = obj2(:,:,1);
-G = obj2(:,:,2);
-B = obj2(:,:,3);
-
-R(~BWfinal) = 0;
-G(~BWfinal) = 0;
-B(~BWfinal) = 0;
-RGB = cat(3,R,G,B);
-figure, imshow(RGB);R(~BWfinal) = 0;
 
 % figure, imshow(obj);
 % 
