@@ -2,8 +2,9 @@ clc
 close all
 warning off
 
-obj = imread('banana.png');
+obj = imread('diagonal.png');
 figure, imshow(obj);
+buah = true;
 obj2 = obj;
 % figure, imshow(obj);
 
@@ -62,7 +63,64 @@ R(~BWfinal) = 0;
 G(~BWfinal) = 0;
 B(~BWfinal) = 0;
 RGB = cat(3,R,G,B);
-figure, imshow(RGB);R(~BWfinal) = 0;
+figure, imshow(RGB);
+total = numel(BWfinal);
+Luas = length(BWfinal(BWfinal~=0));
+
+%deteksi warna
+HSV = rgb2hsv(RGB);
+
+H = HSV(:,:,1);
+S = HSV(:,:,2);
+
+[r,c,v] = find((H>30/255 & H<54/255 & S>50/255));
+
+numid = size(r,1);
+bw = false(size(RGB,1), size(RGB,2));
+for i = 1:numid
+    bw(r(i),c(i)) =1;
+end
+
+bw = imfill(bw, 'holes');
+bw = bwareaopen(bw, 1000);
+
+R = RGB(:,:, 1);
+G = RGB(:,:, 2);
+B = RGB(:,:, 3);
+
+R(~bw) = 0;
+G(~bw) = 0;
+B(~bw) = 0;
+img = cat(3,R,G,B);
+figure , imshow(img);
+
+img = imbinarize(rgb2gray(img));
+figure, imshow(img);
+Luas_kuning = length(img(img~=0));
+
+matang = 'busuk';
+if(Luas_kuning >= (Luas/100*40))
+    matang = 'segar';
+end
+if(Luas_kuning <= 1)
+    matang = 'bukan pisang';
+end
+%j = rgb2gray(img);
+
+%k = imbinarize(j,.95);
+
+% i = double(img);
+% figure , imshow(i);
+% 
+% img = rgb2gray(img);
+% figure,imshow(img);
+% img = imbinarize(img);
+% figure, imshow(img);
+
+
+
+
+
 
 % figure, imshow(obj);
 % 
