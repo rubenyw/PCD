@@ -2,7 +2,7 @@ clc, clear
 close all
 warning off
 
-obj = imread('pensil.png');
+obj = imread('banana.png');
 % figure, imshow(obj);
 buah = true;
 obj2 = obj;
